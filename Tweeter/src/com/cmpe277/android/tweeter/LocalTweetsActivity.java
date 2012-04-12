@@ -123,8 +123,27 @@ public class LocalTweetsActivity extends ListActivity implements TwitterApiReque
 	}
 	
 	/**
-	 * The callback method that is required to be implemented for interface TwitterApiRequestHandler. This method gets result from a JSON request in JSON format.
+	 * The callback method that is required to be implemented for interface TwitterApiRequestHandler.
+	 * This method gets result from a JSON request in JSON format.
 	 * 
+	 * Sample JSON format for Twitter API search response
+	 * 	{
+	 * 		"results": [
+	 * 			{
+	 * 				"from_user":"google",
+	 * 				"from_user_name": "A Googler",
+	 * 				"profile_image_url": "http:\/\/a0.twimg.com\/profile_images\/77186109\/favicon_normal.png",
+	 * 				"text": "Toward a simpler, more beautiful Google: a more functional & flexible version of Google+ rolling out now http:\/\/t.co\/NJlyGUrk",
+	 * 	if exists-> "location": "Mountain View, CA",
+	 * 	if exists->	"geo": {
+	 * 					"coordinates": [37.4220050,-122.0840950],
+	 * 					"type": "Point"
+	 * 				}
+	 * 			},
+	 * 			....
+	 * 		]
+	 * 	}		
+	 * 	
 	 * @param result - A string representing the result of a JSON request in JSON format
 	 */
 	@Override
