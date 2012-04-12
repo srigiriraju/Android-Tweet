@@ -146,7 +146,6 @@ public class LocalTweetsActivity extends ListActivity implements TwitterApiReque
 	 * 	
 	 * @param result - A string representing the result of a JSON request in JSON format
 	 */
-	@Override
 	public void parseTwitterResult(String result) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 		
