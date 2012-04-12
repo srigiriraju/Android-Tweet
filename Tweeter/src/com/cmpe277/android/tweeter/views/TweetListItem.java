@@ -60,7 +60,6 @@ public class TweetListItem extends RelativeLayout implements DownloadImageTaskHa
 	 * Callback method for DownloadImageTask that needs to be implemented to set the image
 	 * to the profile image view and save the image to the tweet object.
 	 */
-	@Override
 	public void processDownloadImage(Bitmap image) {
 		profileImage.setImageBitmap(image);
 		tweet.setImage(image);
