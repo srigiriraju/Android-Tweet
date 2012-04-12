@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cmpe277.android.tweeter.views.TweetListItem 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/tweet_list_item_profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@android:drawable/picture_frame" />
+
+    <TextView
+        android:id="@+id/tweet_list_item_username_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tweet_list_item_profile_image"
+        android:text="Username"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tweet_list_item_tweet_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tweet_list_item_username_text"
+        android:layout_toRightOf="@+id/tweet_list_item_profile_image"
+        android:text="Tweet text" />
+
+</com.cmpe277.android.tweeter.views.TweetListItem>

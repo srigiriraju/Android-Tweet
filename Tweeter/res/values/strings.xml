@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="menu_welcome_text">Welcome to Tweeter</string>
+    <string name="app_name">Tweeter</string>
+    <string name="menu_button_tweet_title">Tweet</string>
+    <string name="menu_button_timeline_title">Timeline</string>
+    <string name="menu_button_trends_title">Trends</string>
+    <string name="menu_button_local_tweets_title">Local Tweets</string>
+    <string name="activity_title_local_tweets">Local Tweets</string>
+    <string name="activity_title_tweet">Tweet</string>
+    <string name="activity_title_timeline">Timeline</string>
+    <string name="activity_title_trends">Trends</string>
+
+</resources>

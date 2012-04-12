@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.20"
+        android:text="@string/menu_welcome_text"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/menu_tweet_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="@string/menu_button_tweet_title" />
+
+    <Button
+        android:id="@+id/menu_timeline_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="@string/menu_button_timeline_title" />
+
+    <Button
+        android:id="@+id/menu_trends_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="@string/menu_button_trends_title" />
+
+    <Button
+        android:id="@+id/menu_local_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="@string/menu_button_local_tweets_title" />
+
+</LinearLayout>
