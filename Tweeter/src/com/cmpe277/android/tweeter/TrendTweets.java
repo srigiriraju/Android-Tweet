@@ -7,6 +7,7 @@ import twitter4j.*;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.*;
 import android.view.View;
@@ -50,9 +51,9 @@ public class TrendTweets extends ListActivity{
 		trendTweetsList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.i(TAG,"Brett in setOnItemClickListener");
+				Log.i(TAG,"Enter setOnItemClickListener");
 				selectedTweet = (Tweet)trendTweetsList.getAdapter().getItem(position);
-				Log.i(TAG,"Brett got Tweet " + selectedTweet.getText());
+				Log.i(TAG,"Selected Tweet From User" + selectedTweet.getFromUser());
 			}
 		});
 		followTweeterButton.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +70,17 @@ public class TrendTweets extends ListActivity{
 					.create()
 					.show();
 				}
+				else{
+					Intent intent = new Intent(TrendTweets.this, TwitterLogin.class);
+					startActivity(intent);				
+				}
 			}
 		});
 	}
 	 
 	private void getTrendTweets(String queryStr){
 		try {
-			Log.i(TAG,"Brett entering getTrendTweets");
+			Log.i(TAG,"Entering getTrendTweets");
 			RunQuery runQuery = new RunQuery();
 			runQuery.execute(queryStr);
 		}catch (Exception e){
