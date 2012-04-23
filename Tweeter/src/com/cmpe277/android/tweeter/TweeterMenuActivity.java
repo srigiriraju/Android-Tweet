@@ -45,9 +45,8 @@ public class TweeterMenuActivity extends Activity {
 		});
 		trendsButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// TODO: Go to trends activity
-				//Intent intent = new Intent(TweeterMenuActivity.this, <TRENDS_ACTIVITY_CLASSNAME>.class);
-				//startActivity(intent);
+				Intent intent = new Intent(TweeterMenuActivity.this, TwitterTrends.class);
+				startActivity(intent);
 			}
 		});
 		localButton.setOnClickListener(new View.OnClickListener() {

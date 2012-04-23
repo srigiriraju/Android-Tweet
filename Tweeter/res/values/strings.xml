@@ -11,5 +11,7 @@
     <string name="activity_title_tweet">Tweet</string>
     <string name="activity_title_timeline">Timeline</string>
     <string name="activity_title_trends">Trends</string>
-
+    <string name="activity_title_trend_tweets">Trend Tweets</string>
+    <string name="back_button">Back</string>
+    <string name="follow_button">Follow Tweeter</string>
 </resources>
