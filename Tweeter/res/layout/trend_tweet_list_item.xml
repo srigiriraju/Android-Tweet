@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
+        android:layout_marginLeft="5dp"
         android:text="Username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tweet_list_item_username_text"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
+        android:layout_marginLeft="5dp"
         android:text="Tweet text" />
 
 </com.cmpe277.android.tweeter.views.TrendTweetListItem>

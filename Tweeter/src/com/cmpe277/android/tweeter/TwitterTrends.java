@@ -10,7 +10,6 @@ import android.os.*;
 import android.view.View;
 import android.util.Log;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,7 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 public class TwitterTrends extends ListActivity{
 	private final int GLOBAL=1;
 	private final String TAG=TwitterTrends.this.toString();
-	private Button backButton;
 	private TrendListAdapter adapter;
 	private ListView trendsList;
 	
@@ -41,8 +39,7 @@ public class TwitterTrends extends ListActivity{
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Trend trend = (Trend)trendsList.getAdapter().getItem(position);
-				//Brett start here now query tweets from Trend. Use trend.getUrl() to get Tweets.
-				Log.i(TAG,"Brett got Trend " + trend.getName() + "; " + trend.getQuery() + "; " + trend.getUrl());
+				Log.i(TAG,"Got Trend " + trend.getName() + "; " + trend.getQuery() + "; " + trend.getUrl());
 				Intent intent = new Intent(TwitterTrends.this, TrendTweets.class);
 				intent.putExtra("TREND_NAME_FOR_QUERY", trend.getQuery());
 				startActivity(intent);				

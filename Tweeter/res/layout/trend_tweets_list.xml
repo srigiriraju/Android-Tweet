@@ -7,18 +7,20 @@
         android:id="@+id/title_trend_tweets_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/activity_title_trend_tweets" /> 
     
     <ListView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:id="@id/android:list"
-		android:layout_below="@id/title_trend_tweets_textview" />
+		android:layout_below="@id/title_trend_tweets_textview"
+    	android:layout_above="@+id/follow_tweeter_button" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/follow_tweeter_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

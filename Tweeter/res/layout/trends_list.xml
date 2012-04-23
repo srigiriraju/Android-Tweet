@@ -7,8 +7,10 @@
         android:id="@+id/title_trends_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/activity_title_trends" />
     
     <ListView
