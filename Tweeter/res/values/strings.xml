@@ -23,9 +23,8 @@
     <string name="twitter_login_title">Log into Twitter</string>
     <string name="login_button">Login</string>
     <string name="username_text">User Name</string>
-	<string name="username_hint_text">Enter Twitter User Name</string>
-	<string name="username_not_entered_title">Username was not Entered</string>
-	<string name="username_not_entered_text">Please enter the username for your twitter account.</string>
+	<string name="user_not_logged_into_twitter_title">Twitter User Not Logged In</string>
+	<string name="user_not_logged_into_twitter_text">You must be logged into your Twitter account to use this feature.  Log in?</string>
 	<string name="login_failed_title">Log in Failed</string>
 	<string name="login_failed_message">Log in Failed.  Retry?</string>
     <string name="ok">OK</string>

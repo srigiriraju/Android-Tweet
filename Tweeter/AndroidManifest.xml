@@ -29,7 +29,17 @@
         <activity android:name=".LocalTweetsActivity" android:text="@string/activity_title_local_tweets" />
     	<activity android:name=".TwitterTrends" android:text="@string/activity_title_trends" />
     	<activity android:name=".TrendTweets" android:text="@string/activity_title_trend_tweets" />
-    	<activity android:name=".TwitterLogin" android:text="@string/activity_title_login" />
+		<activity
+			android:name=".TwitterLogin"
+            android:launchMode="singleInstance"
+            android:text="@string/activity_title_login">
+            <intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="login-to-twitter-sqb-01-android" />
+			</intent-filter>
+		</activity>
     </application>
 
 </manifest>

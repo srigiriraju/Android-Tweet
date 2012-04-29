@@ -3,7 +3,10 @@ package com.cmpe277.android.tweeter;
 import java.util.*;
 
 import com.cmpe277.android.tweeter.adapters.TrendTweetListAdapter;
+import com.cmpe277.android.tweeter.models.Storage;
+
 import twitter4j.*;
+import twitter4j.auth.AccessToken;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -16,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
 
 
 public class TrendTweets extends ListActivity{
@@ -71,13 +76,17 @@ public class TrendTweets extends ListActivity{
 					.show();
 				}
 				else{
+					Log.i(TAG,"Starting TwitterLogin activity");
 					Intent intent = new Intent(TrendTweets.this, TwitterLogin.class);
-					startActivity(intent);				
+					startActivity(intent);
+					followUser();
+					setContentView(R.layout.trend_tweets_list);  
 				}
 			}
 		});
 	}
-	 
+	
+	
 	private void getTrendTweets(String queryStr){
 		try {
 			Log.i(TAG,"Entering getTrendTweets");
@@ -87,6 +96,56 @@ public class TrendTweets extends ListActivity{
 			e.printStackTrace(System.out);
 		}
 	}
+	
+	
+	private void followUser(){
+		try{
+			Storage store = Storage.getInstance(getBaseContext());
+			AccessToken acToken = store.getAccessToken();
+			if(acToken != null){
+				(new RunCreateFriendship()).execute(acToken);				
+			}
+			else{
+				Toast.makeText(this,"No access token. Attempt to follow tweeter " + selectedTweet.getFromUser() + " failed.  Please try again.", Toast.LENGTH_LONG).show();
+			}
+		}
+		catch(Exception ex){
+			Toast.makeText(this,"Attempt to follow tweeter " + selectedTweet.getFromUser() + " failed.  Please try again.", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+
+	//Async background/foreground for creating a friendship
+	public class RunCreateFriendship extends AsyncTask<AccessToken,String,Boolean>{
+		protected Boolean doInBackground(AccessToken ... params){
+			Boolean bool = new Boolean(true);
+			try{
+				AccessToken acToken = params[0];
+				Log.i(TAG,"Entering doInBackground");
+				Twitter twitter = new TweeterFactory().getTwitter();
+				//user authorization to follow is set here
+				twitter.setOAuthAccessToken(acToken);
+				twitter.createFriendship(selectedTweet.getFromUserId());
+				//twitter.destroyFriendship(selectedTweet.getFromUserId());
+			} catch (TwitterException e) {
+				bool = new Boolean(false);
+				e.printStackTrace(System.out);
+			}
+			return bool;
+		}	 
+			 
+		protected void onPostExecute(Boolean bool) {
+	    	super.onPostExecute(bool);
+	    	Log.i(TAG,"Entering onPostExecute");
+	    	if(bool.booleanValue()){
+	    		Toast.makeText(TrendTweets.this,"You are now following user " + selectedTweet.getFromUser(), Toast.LENGTH_LONG).show();				
+	    	}
+	    	else{
+	    		Toast.makeText(TrendTweets.this,"Attempt to follow tweeter " + selectedTweet.getFromUser() + " failed.  Please try again.", Toast.LENGTH_LONG).show();
+	    	}
+		}
+	}
+
 		 
 	//Async background/foreground for querying for trends.
 	public class RunQuery extends AsyncTask<String,String,List<Tweet>>{

@@ -1,76 +1,67 @@
 package com.cmpe277.android.tweeter;
 
+import com.cmpe277.android.tweeter.models.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.*;
 import android.util.Log;
-import android.view.View;
 import android.webkit.*;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import twitter4j.*;
 import twitter4j.auth.RequestToken;
+import twitter4j.auth.AccessToken;
 
 public class TwitterLogin extends Activity {
-	private final String TAG = this.toString();
-	private final String TWITTER_KEY="TWITTER_DATA";
-    private final String ACCESS_TOKEN = "accessToken";
-    private final String ACCESS_TOKEN_SECRET = "accessTokenSecret";
-	private final String CALLBACK_URL="login-to-twitter-sqb-01-android";
-	private final String DISCRIMINATOR="!X2aB%$)Yc3";
-	private SharedPreferences storage;
-	private Button loginButton;
-	private EditText usernameEditText;
-	private String username;
+	private final String TAG = this.toString();	
+    private final String CALLBACK_URL="login-to-twitter-sqb-01-android:///";
+	private Twitter twitter;
+	private Storage stored;
+	private RequestToken reqToken;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"Entering onCreate");
-        storage = getSharedPreferences(TWITTER_KEY, MODE_PRIVATE);
-        setContentView(R.layout.log_into_twitter);
+		stored = Storage.getInstance(this);
 	    setupView();
 	}
 	
 	private void setupView(){
-		usernameEditText=(EditText)findViewById(R.id.username_edit);
-		loginButton = (Button)findViewById(R.id.login_button);
-		
-		loginButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				username = usernameEditText.getText().toString();
-				if(username != null){
+		if(stored.getAccessToken()== null){
+			new AlertDialog.Builder(TwitterLogin.this)
+			.setTitle(R.string.user_not_logged_into_twitter_title)
+			.setMessage(R.string.user_not_logged_into_twitter_text)
+			.setPositiveButton(R.string.ok, new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
 					logIntoAccount();
 				}
-				else{
-					new AlertDialog.Builder(TwitterLogin.this)
-					.setTitle(R.string.username_not_entered_title)
-					.setMessage(R.string.username_not_entered_text)
-					.setPositiveButton(R.string.ok, new AlertDialog.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							//do nothing
-						}
-					})
-					.create()
-					.show();
+			})
+			.setNegativeButton(R.string.cancel, new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
 				}
-			}
-		});
+			})
+			.create()
+			.show();
+		}
+		else{			
+			finish();
+		}		
 	}
 	
 	private void logIntoAccount(){
 		 try{
-			 Twitter twitter = new TweeterFactory().getTwitter();
-			 (new RunQuery()).execute(twitter);
+			 twitter = new TweeterFactory().getTwitter();
+			 (new RunTwitterSignOn()).execute(twitter);
 	     }catch (Exception e){
 	       	  e.printStackTrace(System.out);
 	     }
 	}
-		
-	 @Override
+	
+	@Override
 	 protected void onResume() {
 	     super.onResume();
 	     Log.i(TAG,"Entering onResume()");
@@ -80,32 +71,71 @@ public class TwitterLogin extends Activity {
 	 protected void onNewIntent(Intent intent) {
 	     super.onNewIntent(intent);
 	     Log.i(TAG,"Entering onNewIntent()");
-	     finish();
+	     Uri uri = intent.getData();
+	     //If the user has just logged in get data received from Twitter.
+	     if (uri != null && uri.toString().startsWith(CALLBACK_URL)) { 
+             String oauthVerifier = uri.getQueryParameter("oauth_verifier");
+             (new RunCreateAccessToken()).execute(oauthVerifier);
+	     }
+	     else{
+	    	 Log.i(TAG,"uri not from login. uri is " + uri);
+	    	 finish();
+	     }
 	 } 
-	 
-	 public class RunQuery extends AsyncTask<Twitter,String,RequestToken>{
+			     
+     /**
+      * Background thread for doing the sign on the twitter
+      */
+	 public class RunTwitterSignOn extends AsyncTask<Twitter,String,RequestToken>{
 		 protected RequestToken doInBackground(Twitter ... twitter){
-			 RequestToken reqToken=null;
+			 RequestToken theReqToken = null;
 			 try{
 			 	Log.i(TAG, "Inside doInBackgroud - calling getOAuthRequestToken");
-			 	reqToken = twitter[0].getOAuthRequestToken(CALLBACK_URL);
+			 	theReqToken = twitter[0].getOAuthRequestToken(CALLBACK_URL);
 			 } catch (TwitterException e) {
 		        e.printStackTrace(System.out);
 			 }
-			 return reqToken;
+			 return theReqToken;
 		 }
 		  
          protected void onPostExecute(RequestToken token) {
         	 super.onPostExecute(token);
              try{
+            	 reqToken=token;
             	 Log.i(TAG, "Starting Webview to log into twitter");
                  WebView twitterSite = new WebView(TwitterLogin.this);
+                 Log.i(TAG,"Loading url to twitterSite WebView");
                  twitterSite.loadUrl(token.getAuthenticationURL());
+                 Log.i(TAG,"Setting twitterSite as ContentView");
                  setContentView(twitterSite);
              }
              catch(Exception e){
             	 e.printStackTrace(System.out);
              }
+         }
+	 }
+	 
+	 /**
+      * Background thread for requesting authorization token from Twitter
+      */
+	 public class RunCreateAccessToken extends AsyncTask<String,String,String>{
+		 protected String doInBackground(String ... params){
+			 try{				
+				String oAuthVer = params[0];
+				AccessToken atToken = twitter.getOAuthAccessToken(reqToken, oAuthVer);
+                stored.saveAccessToken(atToken);
+			 } catch (Exception e) {
+		        e.printStackTrace(System.out);
+			 }
+			 return null;
+		 }
+		  
+         protected void onPostExecute(String empty) {
+        	 super.onPostExecute(empty);
+        	 if(stored.getAccessToken()==null){
+        		 Toast.makeText(TwitterLogin.this, "Twitter authorization error x01, try again later", Toast.LENGTH_SHORT).show();
+        	 }
+        	 finish();
          }
 	 }
 }
