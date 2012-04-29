@@ -13,6 +13,7 @@ public class TweeterMenuActivity extends Activity {
 	private Button timelineButton;
 	private Button trendsButton;
 	private Button localButton;
+	private Button twitterLoginButton;
 	
     /** Called when the activity is first created. */
     @Override
@@ -24,11 +25,19 @@ public class TweeterMenuActivity extends Activity {
     }
     
     private void setupViews() {
+    	twitterLoginButton = (Button)findViewById(R.id.menu_log_into_twitter_button);
     	tweetButton = (Button)findViewById(R.id.menu_tweet_button);
     	timelineButton = (Button)findViewById(R.id.menu_timeline_button);
     	trendsButton = (Button)findViewById(R.id.menu_trends_button);
     	localButton = (Button)findViewById(R.id.menu_local_button);
 		
+    	twitterLoginButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(TweeterMenuActivity.this, TwitterLogin.class);
+				startActivity(intent);				
+			}
+		});
+    	
 		tweetButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// TODO: Go to post tweet activity

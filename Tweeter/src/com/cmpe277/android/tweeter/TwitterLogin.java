@@ -30,10 +30,10 @@ public class TwitterLogin extends Activity {
 	}
 	
 	private void setupView(){
-		if(stored.getAccessToken()== null){
+		if(stored.getAccessToken()!= null){
 			new AlertDialog.Builder(TwitterLogin.this)
-			.setTitle(R.string.user_not_logged_into_twitter_title)
-			.setMessage(R.string.user_not_logged_into_twitter_text)
+			.setTitle(R.string.user_already_logged_into_twitter_title)
+			.setMessage(R.string.user_already_logged_into_twitter_text)
 			.setPositiveButton(R.string.ok, new AlertDialog.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					logIntoAccount();
@@ -48,7 +48,7 @@ public class TwitterLogin extends Activity {
 			.show();
 		}
 		else{			
-			finish();
+			logIntoAccount();
 		}		
 	}
 	
@@ -71,6 +71,8 @@ public class TwitterLogin extends Activity {
 	 protected void onNewIntent(Intent intent) {
 	     super.onNewIntent(intent);
 	     Log.i(TAG,"Entering onNewIntent()");
+	     //returned from twitter login so set main menu back online.  Not required, but used for better screen appearance.
+	     setContentView(R.layout.main);
 	     Uri uri = intent.getData();
 	     //If the user has just logged in get data received from Twitter.
 	     if (uri != null && uri.toString().startsWith(CALLBACK_URL)) { 
@@ -78,7 +80,7 @@ public class TwitterLogin extends Activity {
              (new RunCreateAccessToken()).execute(oauthVerifier);
 	     }
 	     else{
-	    	 Log.i(TAG,"uri not from login. uri is " + uri);
+	    	 Log.i(TAG,"uri not from login. uri is " + uri);	    	 
 	    	 finish();
 	     }
 	 } 
@@ -107,7 +109,7 @@ public class TwitterLogin extends Activity {
                  Log.i(TAG,"Loading url to twitterSite WebView");
                  twitterSite.loadUrl(token.getAuthenticationURL());
                  Log.i(TAG,"Setting twitterSite as ContentView");
-                 setContentView(twitterSite);
+                 setContentView(twitterSite);                 
              }
              catch(Exception e){
             	 e.printStackTrace(System.out);
@@ -133,7 +135,10 @@ public class TwitterLogin extends Activity {
          protected void onPostExecute(String empty) {
         	 super.onPostExecute(empty);
         	 if(stored.getAccessToken()==null){
-        		 Toast.makeText(TwitterLogin.this, "Twitter authorization error x01, try again later", Toast.LENGTH_SHORT).show();
+        		 Toast.makeText(TwitterLogin.this, "Twitter authorization error x01. Please try again later", Toast.LENGTH_SHORT).show();
+        	 }
+        	 else{
+        		 Toast.makeText(TwitterLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
         	 }
         	 finish();
          }

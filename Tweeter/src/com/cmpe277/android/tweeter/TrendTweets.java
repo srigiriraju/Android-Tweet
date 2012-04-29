@@ -10,7 +10,6 @@ import twitter4j.auth.AccessToken;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.*;
 import android.view.View;
@@ -63,7 +62,20 @@ public class TrendTweets extends ListActivity{
 		});
 		followTweeterButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if(selectedTweet == null){
+				Storage store = Storage.getInstance(getBaseContext());
+				if(!store.isUserLoggedIntoTwitter()){
+					new AlertDialog.Builder(TrendTweets.this)
+					.setTitle(R.string.user_not_logged_into_twitter_title)
+					.setMessage(R.string.user_not_logged_into_twitter_text)
+					.setPositiveButton(R.string.ok, new AlertDialog.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							//do nothing
+						}
+					})
+					.create()
+					.show();
+				}
+				else if(selectedTweet == null){
 					new AlertDialog.Builder(TrendTweets.this)
 					.setTitle(R.string.tweeter_not_selected_title)
 					.setMessage(R.string.tweeter_not_selected_text)
@@ -75,17 +87,12 @@ public class TrendTweets extends ListActivity{
 					.create()
 					.show();
 				}
-				else{
-					Log.i(TAG,"Starting TwitterLogin activity");
-					Intent intent = new Intent(TrendTweets.this, TwitterLogin.class);
-					startActivity(intent);
+				else{					
 					followUser();
-					setContentView(R.layout.trend_tweets_list);  
 				}
 			}
 		});
 	}
-	
 	
 	private void getTrendTweets(String queryStr){
 		try {

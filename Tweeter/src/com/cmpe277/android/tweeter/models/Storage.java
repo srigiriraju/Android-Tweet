@@ -49,4 +49,14 @@ public class Storage{
             }
             return at;
     }
+    
+    public boolean isUserLoggedIntoTwitter(){
+        String token = prefs.getString(ACCESS_TOKEN, null);
+        String secret = prefs.getString(ACCESS_TOKEN_SECRET, null);
+
+        if(token != null && secret != null){
+        	return true;
+        }
+        return false;
+    }
 }

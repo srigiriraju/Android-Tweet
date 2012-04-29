@@ -3,6 +3,7 @@
 
     <string name="menu_welcome_text">Welcome to Tweeter</string>
     <string name="app_name">Tweeter</string>
+    <string name="menu_button_log_into_twitter_title">Log into Twitter</string>
     <string name="menu_button_tweet_title">Tweet</string>
     <string name="menu_button_timeline_title">Timeline</string>
     <string name="menu_button_trends_title">Trends</string>
@@ -24,7 +25,9 @@
     <string name="login_button">Login</string>
     <string name="username_text">User Name</string>
 	<string name="user_not_logged_into_twitter_title">Twitter User Not Logged In</string>
-	<string name="user_not_logged_into_twitter_text">You must be logged into your Twitter account to use this feature.  Log in?</string>
+	<string name="user_not_logged_into_twitter_text">You must be logged into your Twitter account to use this feature.</string>
+	<string name="user_already_logged_into_twitter_title">Twitter User Already Logged In</string>
+	<string name="user_already_logged_into_twitter_text">You are already logged into your Twitter account.  Continue?</string>
 	<string name="login_failed_title">Log in Failed</string>
 	<string name="login_failed_message">Log in Failed.  Retry?</string>
     <string name="ok">OK</string>
