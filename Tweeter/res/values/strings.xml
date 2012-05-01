@@ -30,6 +30,8 @@
 	<string name="user_already_logged_into_twitter_text">You are already logged into your Twitter account.  Continue?</string>
 	<string name="login_failed_title">Log in Failed</string>
 	<string name="login_failed_message">Log in Failed.  Retry?</string>
+	<string name="tweet_text_title">Enter Tweet Message</string>
+	<string name="send">Send</string>
     <string name="ok">OK</string>
 	<string name="cancel">Cancel</string>
 </resources>
