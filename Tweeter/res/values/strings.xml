@@ -3,6 +3,7 @@
 
     <string name="menu_welcome_text">Welcome to Tweeter</string>
     <string name="app_name">Tweeter</string>
+    <string name="menu_button_log_into_twitter_title">Log into Twitter</string>
     <string name="menu_button_tweet_title">Tweet</string>
     <string name="menu_button_timeline_title">Timeline</string>
     <string name="menu_button_trends_title">Trends</string>
@@ -11,5 +12,27 @@
     <string name="activity_title_tweet">Tweet</string>
     <string name="activity_title_timeline">Timeline</string>
     <string name="activity_title_trends">Trends</string>
-
+    <string name="show_map_button_text">Show Map</string>
+    <string name="activity_title_trend_tweets">Trend Tweets</string>
+    <string name="activity_title_login">Twitter Login</string>
+    <string name="back_button">Back</string>
+    <string name="follow_button">Follow Tweeter</string>
+    <string name="tweets_not_found_title">Tweets not Found</string>
+    <string name="tweets_not_found_text">No tweets were found for trend %1$s</string>
+    <string name="tweeter_not_selected_title">No Tweeter was Selected</string>
+    <string name="tweeter_not_selected_text">Please first select tweeter to follow.</string>
+    <string name="login">Login</string>
+    <string name="twitter_login_title">Log into Twitter</string>
+    <string name="login_button">Login</string>
+    <string name="username_text">User Name</string>
+	<string name="user_not_logged_into_twitter_title">Twitter User Not Logged In</string>
+	<string name="user_not_logged_into_twitter_text">You must be logged into your Twitter account to use this feature.</string>
+	<string name="user_already_logged_into_twitter_title">Twitter User Already Logged In</string>
+	<string name="user_already_logged_into_twitter_text">You are already logged into your Twitter account.  Continue?</string>
+	<string name="login_failed_title">Log in Failed</string>
+	<string name="login_failed_message">Log in Failed.  Retry?</string>
+	<string name="tweet_text_title">Enter Tweet Message</string>
+	<string name="send">Send</string>
+    <string name="ok">OK</string>
+	<string name="cancel">Cancel</string>
 </resources>

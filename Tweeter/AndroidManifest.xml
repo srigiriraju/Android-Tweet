@@ -22,13 +22,25 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
         <activity android:name=".LocalTweetsActivity" android:text="@string/activity_title_local_tweets" />
-    
+    	<activity android:name=".TwitterTrends" android:text="@string/activity_title_trends" />
+    	<activity android:name=".TrendTweets" android:text="@string/activity_title_trend_tweets" />
+    	<activity android:name=".SendTweet" android:text="@string/activity_title_tweet" />
+		<activity
+			android:name=".TwitterLogin"
+            android:launchMode="singleTask"
+            android:text="@string/activity_title_login">
+            <intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="login-to-twitter-sqb-01-android" />
+			</intent-filter>
+		</activity>
     </application>
 
 </manifest>

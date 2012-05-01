@@ -13,6 +13,13 @@
         android:textSize="30dp" />
 
     <Button
+        android:id="@+id/menu_log_into_twitter_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.08"
+        android:text="@string/menu_button_log_into_twitter_title" />
+    
+    <Button
         android:id="@+id/menu_tweet_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
