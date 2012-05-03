@@ -12,7 +12,6 @@
     <string name="activity_title_tweet">Tweet</string>
     <string name="activity_title_timeline">Timeline</string>
     <string name="activity_title_trends">Trends</string>
-    
     <string name="activity_title_trend_tweets">Trend Tweets</string>
     <string name="activity_title_login">Twitter Login</string>
     <string name="back_button">Back</string>
@@ -34,7 +33,8 @@
 	<string name="tweet_text_title">Enter Tweet Message</string>
 	<string name="send">Send</string>
     <string name="ok">OK</string>
-	<string name="cancel">Cancel</string><string name="show_map_button_text">Show Map</string>
+	<string name="cancel">Cancel</string>
+	<string name="show_map_button_text">Show Map</string>
 	<string name="show_list_button_text">Show List</string>
 	<string name="layout_content_desc_profile_image">User profile image</string>
 	<string name="layout_content_desc_user_tweet">User tweet </string>
