@@ -1,6 +1,7 @@
 package com.cmpe277.android.tweeter;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,21 +14,33 @@ import com.cmpe277.android.tweeter.models.Tweet;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class LocalTweetsActivity extends ListActivity implements TwitterApiRequestHandler {
 
 	private final static String TWITTER_API_URL_SEARCH_LOCAL = "http://search.twitter.com/search.json?geocode=%.7f,%.7f,%dmi&rpp=20&include_entities=true&result_type=mixed";
+	//private final static String TWITTER_API_URL_SEARCH_LOCAL = "http://search.twitter.com/search.json?geocode=%.7f,%.7f,%dmi&rpp=100&include_entities=true&result_type=mixed";
 	private final static int LOCAL_TWEETS_SEARCH_RADIUS = 20; // in miles
+	
+	public final static String LOCAL_TWEETS_LIST_KEY = "local_tweets_list";
+	public final static String CURRENT_LOCATION_LATITUDE_KEY = "current_location_latitude";
+	public final static String CURRENT_LOCATION_LONGITUDE_KEY = "current_location_longitude";
 	
 	// Location related variable
 	private TweeterLocationListener locationListener;
 	private LocationManager locationManager;
 	private Location currentLocation;
+	
+	// Layout related objects
+	private Button showMapButton;
 	
 	private TweetListAdapter adapter;
 		
@@ -76,16 +89,6 @@ public class LocalTweetsActivity extends ListActivity implements TwitterApiReque
 		turnOffLocationTracking();
 	}
 
-/*
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		adapter.toggleTaskCompleteAtPosition(position);
-		Task t = adapter.getItem(position);
-		app.saveTask(t);
-	}
-*/
-	
 	private void turnOnLocationTracking() {
 		// Register the listener with the Location Manager to receive location updates for GPS and Network
 		//List<String> listOfProviders = locationManager.getAllProviders();
@@ -166,18 +169,26 @@ public class LocalTweetsActivity extends ListActivity implements TwitterApiReque
 					locationText = jTweet.getString("location");
 				}
 				
-				Tweet tweet = new Tweet(user, username, tweetText, imageUrl, locationText);
-				
-				//Object obj = jTweet.get("geo");
-				//boolean objExist = jTweet.has("geo");
-				
+				final Tweet tweet = new Tweet(user, username, tweetText, imageUrl, locationText);
+
 				// If geo object exists, proceed to grab the lat and long coordinates
 				if (!jTweet.isNull("geo")) {
 					JSONObject geo = jTweet.getJSONObject("geo");
 					JSONArray coordinates = geo.getJSONArray("coordinates");
-					tweet.setLatitude(coordinates.getDouble(0));
-					tweet.setLongitude(coordinates.getDouble(1));
-					tweet.setHasGeoLocation(true);
+					tweet.setCoordinate(coordinates.getDouble(0), coordinates.getDouble(1));
+				} else {
+					// Get the Geocoder to pass to the tweet object so it can try to retrieve
+					// geo coordinates from the location text
+					final Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+					
+					// Create new thread to have the tweet object go look up the coordinates so it
+					// would not slow down the UI thread.
+					new Thread(new Runnable() {
+						public void run() {
+							tweet.retrieveCoordinatesForLocationText(geocoder);
+						}
+					}).start();
+					
 				}
 				
 				tweets.add(tweet);
@@ -225,8 +236,37 @@ public class LocalTweetsActivity extends ListActivity implements TwitterApiReque
 	*/
 	
 	private void setupViews() {
-		;
+		
+		// Setup for the "Show Map" button
+		showMapButton = (Button)findViewById(R.id.show_map_button);
+		showMapButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// Go to Map view of local tweets
+				Intent intent = new Intent(LocalTweetsActivity.this, LocalTweetsMapActivity.class);
+				
+				// Only pass the tweets and the location if they exist
+				if (currentLocation != null && !adapter.isEmpty()) {
+					intent.putExtra(LOCAL_TWEETS_LIST_KEY, removeImageBitmapForTweets(adapter.getTweets()));
+					intent.putExtra(CURRENT_LOCATION_LATITUDE_KEY, currentLocation.getLatitude());
+					intent.putExtra(CURRENT_LOCATION_LONGITUDE_KEY, currentLocation.getLongitude());
+				}
+				startActivity(intent);
+			}
+		});
 	}
 
-	
+	/**
+	 * This method is needed to clear out image because Bitmap is causing problem retrieving Tweet object
+	 * as a Serializable extra in the intent. Also, it helps reduce memory usage to not pass all images.
+	 * Image URL is still available for other Activity to use for downloading image.
+	 * 
+	 * @param tweets
+	 * @return
+	 */
+	private ArrayList<Tweet> removeImageBitmapForTweets(ArrayList<Tweet> tweets) {
+		for (Tweet tweet : tweets) {
+			tweet.setImage(null);
+		}
+		return tweets;
+	}
 }

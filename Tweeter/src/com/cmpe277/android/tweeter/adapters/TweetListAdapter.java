@@ -48,6 +48,10 @@ public class TweetListAdapter extends BaseAdapter {
 		return tli;
 	}
 	
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+	
 	public void setTweets(ArrayList<Tweet> newTweets) {
 		tweets = newTweets;
 		notifyDataSetChanged();

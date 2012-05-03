@@ -27,6 +27,7 @@
         </activity>
         
         <activity android:name=".LocalTweetsActivity" android:text="@string/activity_title_local_tweets" />
+        <activity android:name=".LocalTweetsMapActivity" android:text="@string/activity_title_local_tweets" />
     	<activity android:name=".TwitterTrends" android:text="@string/activity_title_trends" />
     	<activity android:name=".TrendTweets" android:text="@string/activity_title_trend_tweets" />
     	<activity android:name=".SendTweet" android:text="@string/activity_title_tweet" />

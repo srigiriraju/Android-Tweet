@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:contentDescription="@string/layout_content_desc_profile_image"
         android:src="@android:drawable/picture_frame" />
 
     <TextView
@@ -17,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
-        android:text="Username"
+        android:contentDescription="@string/layout_content_desc_username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -26,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tweet_list_item_username_text"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
-        android:text="Tweet text" />
+        android:contentDescription="@string/layout_content_desc_user_tweet" />
 
 </com.cmpe277.android.tweeter.views.TweetListItem>

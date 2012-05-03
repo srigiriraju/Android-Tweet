@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+    
     <TextView
         android:id="@+id/title_local_tweets_textview"
         android:layout_width="wrap_content"
@@ -12,20 +12,21 @@
         android:text="@string/activity_title_local_tweets" />
     
     <Button
-        android:id="@+id/show_map_button"
+        android:id="@+id/show_list_button"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_below="@id/title_local_tweets_textview"
-        android:text="@string/show_map_button_text"
+        android:text="@string/show_list_button_text"
         android:textSize="12dp" />
+
+    <com.google.android.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/show_list_button"
+        android:apiKey="0FH3x5oF6zHrDIVCBP89u6fMDkYB36ZgKAU794A"
+        android:clickable="true" />
     
-    <ListView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:id="@id/android:list"
-		android:layout_below="@id/show_map_button" />
-
-
 </RelativeLayout>
