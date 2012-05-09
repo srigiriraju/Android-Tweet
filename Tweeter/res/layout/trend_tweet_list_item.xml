@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.cmpe277.android.tweeter.views.TrendTweetListItem 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
     <ImageView
@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@android:drawable/picture_frame" />
+        android:contentDescription="@string/layout_content_desc_profile_image"
+        android:src="@drawable/twitter_profile_image_blank" />
 
     <TextView
         android:id="@+id/tweet_list_item_username_text"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
         android:layout_marginLeft="5dp"
-        android:text="Username"
+        android:text="@string/layout_content_desc_username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -28,6 +29,6 @@
         android:layout_below="@+id/tweet_list_item_username_text"
         android:layout_toRightOf="@+id/tweet_list_item_profile_image"
         android:layout_marginLeft="5dp"
-        android:text="Tweet text" />
+        android:text="@string/layout_content_desc_user_tweet" />
 
 </com.cmpe277.android.tweeter.views.TrendTweetListItem>
