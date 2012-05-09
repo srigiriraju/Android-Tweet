@@ -8,6 +8,9 @@ import twitter4j.auth.AccessToken;
 public class Storage{
 	private final String ACCESS_TOKEN = "accessToken";
 	private final String ACCESS_TOKEN_SECRET = "accessTokenSecret";
+	private final String SCREEN_NAME = "screenName";
+	private final String USER_ID = "userId";
+	private final String PROFILE_IMAGE_URL = "profileImageUrl";
 	private final String TWITTER_KEY="TWITTER_DATA";
 	private SharedPreferences prefs;
 	private static Storage storage;
@@ -27,9 +30,13 @@ public class Storage{
 	public void saveAccessToken(AccessToken at) {
         String token = at.getToken();
         String secret = at.getTokenSecret();
+        String screenName = at.getScreenName();
+        Long userId = at.getUserId();
         Editor editor = prefs.edit();
         editor.putString(ACCESS_TOKEN, token);
         editor.putString(ACCESS_TOKEN_SECRET, secret);
+        editor.putString(SCREEN_NAME, screenName);
+        editor.putLong(USER_ID, userId);
         editor.commit();
 	}
 	
@@ -58,5 +65,35 @@ public class Storage{
         	return true;
         }
         return false;
+    }
+    
+    public String getUsername() {
+    	return prefs.getString(SCREEN_NAME, null);
+    }
+    
+    public Long getUserId() {
+    	return prefs.getLong(USER_ID, -1);
+    }
+    
+    public void setProfileImageUrl(String imageUrl) {
+    	if (imageUrl != null && imageUrl.length() > 0) {
+	    	Editor editor = prefs.edit();
+	    	editor.putString(PROFILE_IMAGE_URL, imageUrl);
+	    	editor.commit();
+    	}
+    }
+    
+    public String getProfileImageUrl() {
+    	return prefs.getString(PROFILE_IMAGE_URL, null);
+    }
+    
+    public void clearUserData() {
+    	Editor editor = prefs.edit();
+    	editor.remove(ACCESS_TOKEN);
+    	editor.remove(ACCESS_TOKEN_SECRET);
+    	editor.remove(SCREEN_NAME);
+    	editor.remove(USER_ID);
+    	editor.remove(PROFILE_IMAGE_URL);
+    	editor.commit();
     }
 }

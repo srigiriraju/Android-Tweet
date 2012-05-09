@@ -5,46 +5,63 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.20"
         android:text="@string/menu_welcome_text"
         android:textSize="30dp" />
+    
+    <ImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="80sp"
+        android:layout_height="0dip"
+        android:layout_weight="0.20"
+        android:layout_gravity="center"
+        android:contentDescription="@string/layout_content_desc_profile_image" />
 
     <Button
         android:id="@+id/menu_log_into_twitter_button"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
+        android:textSize="22dp"
         android:text="@string/menu_button_log_into_twitter_title" />
     
     <Button
         android:id="@+id/menu_tweet_button"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
+        android:textSize="22dp"
         android:text="@string/menu_button_tweet_title" />
 
     <Button
         android:id="@+id/menu_timeline_button"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
+        android:textSize="22dp"
         android:text="@string/menu_button_timeline_title" />
 
     <Button
         android:id="@+id/menu_trends_button"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
+        android:textSize="22dp"
         android:text="@string/menu_button_trends_title" />
 
     <Button
         android:id="@+id/menu_local_button"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
+        android:textSize="22dp"
         android:text="@string/menu_button_local_tweets_title" />
 
 </LinearLayout>

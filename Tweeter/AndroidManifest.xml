@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".TimelineActivity" android:text="@string/activity_title_home_timeline_tweets" />
         <activity android:name=".LocalTweetsActivity" android:text="@string/activity_title_local_tweets" />
         <activity android:name=".LocalTweetsMapActivity" android:text="@string/activity_title_local_tweets" />
     	<activity android:name=".TwitterTrends" android:text="@string/activity_title_trends" />

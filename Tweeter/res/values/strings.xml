@@ -8,6 +8,8 @@
     <string name="menu_button_timeline_title">Timeline</string>
     <string name="menu_button_trends_title">Trends</string>
     <string name="menu_button_local_tweets_title">Local Tweets</string>
+    <string name="activity_title_home_timeline_tweets">Home Timeline</string>
+    <string name="activity_title_personal_timeline_tweets">Personal Timeline</string>
     <string name="activity_title_local_tweets">Local Tweets</string>
     <string name="activity_title_tweet">Tweet</string>
     <string name="activity_title_timeline">Timeline</string>
@@ -23,6 +25,7 @@
     <string name="login">Login</string>
     <string name="twitter_login_title">Log into Twitter</string>
     <string name="login_button">Login</string>
+    <string name="logout_button">Logout %1$s</string>
     <string name="username_text">User Name</string>
 	<string name="user_not_logged_into_twitter_title">Twitter User Not Logged In</string>
 	<string name="user_not_logged_into_twitter_text">You must be logged into your Twitter account to use this feature.</string>
@@ -36,6 +39,8 @@
 	<string name="cancel">Cancel</string>
 	<string name="show_map_button_text">Show Map</string>
 	<string name="show_list_button_text">Show List</string>
+	<string name="user_timeline_text">Personal</string>
+	<string name="home_timeline_text">Home</string>
 	<string name="layout_content_desc_profile_image">User profile image</string>
 	<string name="layout_content_desc_user_tweet">User tweet </string>
 	<string name="layout_content_desc_username">Username</string>

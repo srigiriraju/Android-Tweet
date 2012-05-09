@@ -21,12 +21,29 @@ public class TwitterLogin extends Activity {
 	private Storage stored;
 	private RequestToken reqToken;
 	
+	// Key used in key-pair values to hold loginStatus when stored in result intent going back to TweeterMenuActivity
+	public final static String LOGIN_STATUS = "com.cmpe277.android.tweeter.TweeterMenuActivity.LoginStatus";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"Entering onCreate");
 		stored = Storage.getInstance(this);
-	    setupView();
+		
+		Intent callerIntent = this.getIntent();
+        Bundle callerIntentExtras = callerIntent.getExtras();
+        
+        // Check to see if this is a logged out request from TimelineActivity
+        if (callerIntentExtras != null)
+        {
+	        boolean needToLogout = callerIntentExtras.getBoolean(TweeterMenuActivity.LOGOUT_KEY);
+	        if (needToLogout) {
+	        	logout();
+	        }
+        } else {
+        	// Call setupView to start the logging in process
+        	setupView();
+        }
 	}
 	
 	private void setupView(){
@@ -59,6 +76,23 @@ public class TwitterLogin extends Activity {
 	     }catch (Exception e){
 	       	  e.printStackTrace(System.out);
 	     }
+	}
+	
+	private void logout() {
+		// Clear cookie so user can be logged out
+		CookieSyncManager cookieSyncMngr = CookieSyncManager.createInstance(this);
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.removeAllCookie();
+		
+		// Clear all data saved of user
+		stored.clearUserData();
+		
+		Intent resultIntent = new Intent();
+		
+		// Pass task location back to TweeterMenuActivity
+		resultIntent.putExtra(LOGIN_STATUS, false);
+		setResult(Activity.RESULT_OK, resultIntent);
+		finish();
 	}
 	
 	@Override
@@ -140,7 +174,13 @@ public class TwitterLogin extends Activity {
         	 else{
         		 Toast.makeText(TwitterLogin.this, "Login Successful!", Toast.LENGTH_SHORT).show();
         	 }
-        	 finish();
+        	 
+        	 // Pass task location back to TweeterMenuActivity
+        	 Intent resultIntent = new Intent();
+     		 resultIntent.putExtra(LOGIN_STATUS, true);
+     		 setResult(Activity.RESULT_OK, resultIntent);
+     		 finish();
          }
 	 }
+	 
 }
